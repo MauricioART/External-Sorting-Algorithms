@@ -1,0 +1,53 @@
+.app {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background-color: #101622;
+    -fx-base: #202b40;
+    -fx-accent: #8ea9d4;
+    -fx-focus-color: #9ab9ec;
+    -fx-faint-focus-color: transparent;
+}
+
+.section {
+    -fx-padding: 14 22;
+    -fx-background-color: #171f2f;
+}
+
+.display {
+    -fx-padding: 14 22;
+}
+
+.label, .check-box, .combo-box .list-cell {
+    -fx-text-fill: #f1f4f9;
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.muted, .group-label {
+    -fx-text-fill: #b4bfd1;
+}
+
+.group-label {
+    -fx-font-size: 11px;
+}
+
+.active-legend {
+    -fx-text-fill: #ff8d84;
+}
+
+.play {
+    -fx-background-color: #e8eef9;
+    -fx-text-fill: #101622;
+}
+
+.play:focused {
+    -fx-border-color: #678bc5;
+    -fx-border-radius: 3;
+}
+
+.progress-bar {
+    -fx-pref-height: 8px;
+}

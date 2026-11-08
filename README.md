@@ -1,6 +1,6 @@
 # External Sorting Algorithms
 
-This project is a Java-based application designed to sort large data sets from files using three different external sorting algorithms. It provides a simple user interface to select a file and apply the sorting method of your choice. The three sorting methods implemented are:
+This JavaFX application sorts text files and animates the operations performed by three external sorting algorithms.
 
 - **Polyphase Merge Sort**
 - **Balanced Merge Sort**
@@ -12,57 +12,73 @@ This project is a Java-based application designed to sort large data sets from f
 - [Usage](#usage)
 - [Sorting Algorithms](#sorting-algorithms)
 - [File Input/Output](#file-inputoutput)
+- [Tests](#tests)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Overview
 
-The project is designed to handle large files that cannot be sorted entirely in memory. It uses external sorting algorithms to divide the data into smaller chunks that can be handled more efficiently, merging or rearranging them in the desired order.
+The algorithms use temporary files to sort inputs larger than available memory. The visual demonstration records events from those same implementations for a fixed set of 24 integers.
 
 ## Installation
+
+Use JDK 22 and Maven.
 
 1. Clone the repository to your local machine.
    ```bash
    git clone https://github.com/MauricioART/External-Sorting-Algorithms.git
+   cd External-Sorting-Algorithms
+   ```
 
-2. **Build the project**
-   ```bash
-   mvn clean compile
-
-3. **Run the application**
+2. **Run the application**
    ```bash
    mvn javafx:run
+   ```
 
-Upon running, you'll be presented with a menu in the console with the following options:
+On Windows, you can also use `.\mvnw.cmd javafx:run` from PowerShell.
 
-Polyphase Merge Sort: Sorts the file using the Polyphase Merge Sort algorithm.
-Balanced Merge Sort: Sorts the file using the Balanced Merge Sort algorithm.
-External Radix Sort: Sorts the file using the External Radix Sort algorithm.
-Exit program: Exits the program.
+## Usage
 
-### Example
-1. Select an option from the menu.
-2. Choose a file using the file chooser dialog.
-3. Enter any required parameters (e.g., block size for Polyphase Merge Sort).
-4. The sorted file paths will be displayed upon completion.
+### Visual demonstration
+
+Choose an algorithm and click **Reproducir**. Each bar represents one value and keeps its height as it moves between files or radix buckets. Red marks values involved in the current comparison or write. Green marks the completed output. The label above the chart identifies the current operation, and the counters track merge comparisons and writes during the demonstration.
+
+| Control | Action |
+| --- | --- |
+| **Reproducir / Pausar** | Start or pause playback. |
+| **Anterior / Siguiente** | Move backward or forward one event. |
+| **Reiniciar** | Return to the original input order. |
+| **Velocidad** | Choose a playback speed from 0.5× to 4×. |
+| **Sonido** | Play a short note for the active value. Audio starts disabled. |
+
+### Sort a file
+
+Select an algorithm and click **Ordenar archivo…** to process a text file in the background. The window displays a copyable path to the sorted result. The chart continues to use the 24-value demonstration. For files, Polyphase uses blocks of 8,192 integers. Its demonstration uses blocks of four.
 
 ## Sorting Algorithms
-1. Polyphase Merge Sort
-Polyphase Merge Sort is an external sorting algorithm that optimizes the number of merges by reducing the number of file handles used. It is designed for files that are too large to fit in memory, utilizing temporary files during the merge phase.
+- **Polyphase Merge Sort** sorts fixed-size chunks in memory, distributes them across two temporary files using Fibonacci run counts, and rotates the third file into the input pair after each merge phase.
 
-2. Balanced Merge Sort
-Balanced Merge Sort divides the data into equal-sized blocks and sorts them using a merging process. The blocks are written to auxiliary files, and then the merge process consolidates the sorted blocks into the final sorted file.
+- **Balanced Merge Sort** detects consecutive runs that are already in ascending order. It alternates those runs between two files, merges pairs of runs, and swaps input and output files between passes.
 
-3. External Radix Sort
-This is a variant of Radix Sort adapted for large data sets stored in external memory (files). It sorts the data by processing the digits of the numbers, creating auxiliary files for each digit pass, and merging the results back.
+- **External Radix Sort** distributes values into temporary files for signed digits from −9 to 9. It collects the buckets in order and repeats from the least significant digit to the most significant digit present in the input.
 
 ## File Input/Output
-The program requires a file in .txt format with a list of integers. After sorting, the results will be written back to new files, which are displayed on the console after sorting is complete.
+Choose a UTF-8 text file containing signed 32-bit integers separated by commas or whitespace. For example, `3,-1,2` sorts to `-1,2,3,`.
+
+The input can include duplicate values, negative values, blank lines, and a trailing comma. An empty input produces an empty output. An invalid integer stops the sort and reports its position.
+
+Each successful run writes a new `<algorithm>-sorted-<id>.txt` next to the input. The original stays intact. The directory must be writable so the algorithm can create temporary files and publish the result.
+
+## Tests
+
+```bash
+mvn test
+```
+
+The tests check all three sorters against an in-memory reference, exercise malformed input and concurrent runs, and verify that the animation preserves every value until it reaches the sorted output.
 
 ## Contributing
 If you would like to contribute to this project, feel free to fork the repository and submit a pull request. Contributions in the form of bug fixes, new features, and code improvements are welcome.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-    ```bash
-    You can copy this and save it as `README.md` in your repository! Let me know if you'd like any adjustments.
