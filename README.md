@@ -8,6 +8,7 @@ This JavaFX application sorts text files and animates the operations performed b
 
 ## Table of Contents
 - [Overview](#overview)
+- [Graphical Interface](#graphical-interface)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Sorting Algorithms](#sorting-algorithms)
@@ -19,6 +20,17 @@ This JavaFX application sorts text files and animates the operations performed b
 ## Overview
 
 The algorithms use temporary files to sort inputs larger than available memory. The visual demonstration records events from those same implementations for a fixed set of 24 integers.
+
+## Graphical Interface
+
+![JavaFX window showing a Polyphase Merge Sort comparison. The bars being compared are red, and the bars are grouped by temporary file.](docs/images/javafx-interface.png)
+
+*Polyphase Merge Sort paused during a merge. The line above the chart names the two values being compared.*
+
+1. **Algorithm and file selection.** Use **Algoritmo** to choose which algorithm to visualize. **Ordenar archivo…** runs the selected algorithm on a text file and displays the path to its result.
+2. **Operation and counters.** The text above the chart shows the current phase and the values involved. The counters report merge comparisons and writes. Radix reports writes because it distributes values by digit.
+3. **Bar chart.** Each bar keeps its height as its value moves. During merges, the labels **A**, **B**, **C**, and **D** identify temporary files. In Radix, a label such as **D2** identifies the bucket for digit 2. Red highlights the active values and green marks the completed output.
+4. **Timeline and playback.** The progress bar and **Paso** counter show where you are in the recording. The controls below them let you play, pause, step in either direction, or restart.
 
 ## Installation
 
@@ -41,7 +53,7 @@ On Windows, you can also use `.\mvnw.cmd javafx:run` from PowerShell.
 
 ### Visual demonstration
 
-Choose an algorithm and click **Reproducir**. Each bar represents one value and keeps its height as it moves between files or radix buckets. Red marks values involved in the current comparison or write. Green marks the completed output. The label above the chart identifies the current operation, and the counters track merge comparisons and writes during the demonstration.
+Choose an algorithm and click **Reproducir**. To inspect a comparison, click **Pausar** and use **Anterior** or **Siguiente** to move one recorded event at a time.
 
 | Control | Action |
 | --- | --- |
